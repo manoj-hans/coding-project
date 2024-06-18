@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./deploy/Dockerfile
+      target: prod
+    image: calendly:${CALENDLY_VERSION:-latest}
+    restart: always
+    env_file:
+    - .env
+    labels:
+      # Enables traefik for this container.
+    - traefik.enable=true
+    - traefik.http.routers.calendly.rule=Host(`${CALENDLY_TRAEFIK_HOST:-calendly.localhost}`)
+    - traefik.http.routers.calendly.entrypoints=http
+    - traefik.http.routers.calendly.service=calendly
+    - traefik.http.services.calendly.loadbalancer.server.port=${CALENDLY_PORT:-8000}
+    networks:
+    - default
+    - traefik-shared
+    environment:
+      CALENDLY_HOST: 0.0.0.0
+      CALENDLY_DB_FILE: /db_data/db.sqlite3
+    volumes:
+    - calendly-db-data:/db_data/
+
+  migrator:
+    image: calendly:${CALENDLY_VERSION:-latest}
+    restart: "no"
+    command: alembic upgrade head
+    environment:
+      CALENDLY_DB_FILE: /db_data/db.sqlite3
+    volumes:
+    - calendly-db-data:/db_data/
+
+
+
+volumes:
+  calendly-db-data:
+    name: calendly-db-data
+
+networks:
+  # Network for traefik.
+  traefik-shared:
+    name: traefik-shared
