@@ -1,6 +1,11 @@
-from pydantic import BaseModel
-from datetime import time
+import enum
+
+from pydantic import BaseModel, field_validator
+from datetime import time, datetime
 from typing import List
+
+
+from calendly.db.models.availabilityschedule import DayOfWeek
 
 
 class TimeSlotInputDTO(BaseModel):
@@ -22,22 +27,42 @@ class AvailabilityScheduleListInputDTO(BaseModel):
     schedules: List[AvailabilityScheduleInputDTO]
 
 
+class DayOfWeek(enum.Enum):
+    Monday = 1
+    Tuesday = 2
+    Wednesday = 3
+    Thursday = 4
+    Friday = 5
+    Saturday = 6
+    Sunday = 0
+
+
 class TimeSlotDTO(BaseModel):
-    """DTO for returned time slots within an availability schedule."""
     id: int
     availability_schedules_id: int
     start_time: time
     end_time: time
 
+    @field_validator('start_time', 'end_time')
+    def parse_time(cls, value):
+        if isinstance(value, str):
+            return datetime.strptime(value, '%H:%M:%S').time()
+        return value
+
 
 class AvailabilityScheduleDTO(BaseModel):
-    """DTO for returned availability schedule."""
     id: int
     user_id: int
-    day_of_week: int
+    day_of_week: DayOfWeek
     name: str
     time_slots: List[TimeSlotDTO]
 
     class Config:
         from_attributes = True
+
+    @field_validator('day_of_week')
+    def convert_day_of_week(cls, value):
+        if isinstance(value, int):
+            return DayOfWeek(value)
+        return value
 

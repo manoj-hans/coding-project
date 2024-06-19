@@ -19,9 +19,6 @@ class DayOfWeek(enum.Enum):
     Sunday = 0
 
 # Usage in SQLAlchemy Model
-
-
-
 class AvailabilitySchedule(Base):
     """Model for storing a reusable weekly schedule tied to a specific user and day of the week."""
     __tablename__ = "availability_schedules"
@@ -41,4 +38,4 @@ class AvailabilitySchedule(Base):
         back_populates="availability_schedules")
 
     # Relationship to TimeSlots
-    time_slots: Mapped[list["TimeSlot"]] = relationship("TimeSlot", back_populates="availability_schedules", cascade="all, delete-orphan")
+    time_slots: Mapped[list["TimeSlot"]] = relationship("TimeSlot", back_populates="availability_schedules", cascade="all, delete-orphan", lazy="selectin")

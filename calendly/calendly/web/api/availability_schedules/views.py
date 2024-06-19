@@ -7,11 +7,13 @@ from calendly.db.dao.availability_schedule_dao import AvailabilityScheduleDAO
 router = APIRouter()
 
 
-@router.post("/availability_schedules/", response_model=List[AvailabilityScheduleDTO], status_code=status.HTTP_201_CREATED)
+@router.post("/availability_schedules/",
+             # response_model=List[AvailabilityScheduleDTO],
+             status_code=status.HTTP_201_CREATED)
 async def create_availability_schedules(
     schedules_input: AvailabilityScheduleListInputDTO,
     schedule_dao: AvailabilityScheduleDAO = Depends()
-) -> List[AvailabilityScheduleDTO]:
+):
     """
     Creates multiple availability schedules along with associated time slots in the database.
 
@@ -28,7 +30,7 @@ async def create_availability_schedules(
 async def get_availability_schedules_with_time_slots(
     user_id: int,
     dao: AvailabilityScheduleDAO = Depends(AvailabilityScheduleDAO)
-) -> List[AvailabilityScheduleDTO]:
+):
     """
     Retrieve all availability schedules along with their time slots for a given user.
 
