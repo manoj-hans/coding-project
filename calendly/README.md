@@ -1,11 +1,15 @@
-# calendly
-
-This project was generated using fastapi_template.
+# Calendly
 
 ## Poetry
 
 This project uses poetry. It's a modern dependency management
 tool.
+
+To setup poetry use this command. Asumming you already have python installed
+
+```bash
+python3 -m pip install poetry
+```
 
 To run the project use this set of commands:
 
@@ -154,5 +158,5 @@ For running tests on your local machine.
 
 2. Run the pytest.
 ```bash
-pytest -vv .
+poetry run pytest -vv .
 ```
