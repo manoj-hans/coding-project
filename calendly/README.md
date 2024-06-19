@@ -47,20 +47,77 @@ python demo.py
 ```bash
 $ tree "calendly"
 calendly
-├── conftest.py  # Fixtures for all tests.
-├── db  # module contains db configurations
-│   ├── dao  # Data Access Objects. Contains different classes to interact with database.
-│   └── models  # Package contains different models for ORMs.
-├── __main__.py  # Startup script. Starts uvicorn.
-├── services  # Package for different external services such as rabbit or redis etc.
-├── settings.py  # Main configuration settings for project.
-├── static  # Static content.
-├── tests  # Tests for project.
-└── web  # Package contains web server. Handlers, startup config.
-    ├── api  # Package with all handlers.
-    │   └── router.py  # Main router.
-    ├── application.py  # FastAPI application configuration.
-    └── lifetime.py  # Contains actions to perform on startup and shutdown.
+|-- README.md
+|-- alembic.ini
+|-- calendly
+|   |-- __init__.py
+|   |-- __main__.py
+|   |-- conftest.py
+|   |-- db
+|   |   |-- __init__.py
+|   |   |-- base.py
+|   |   |-- dao
+|   |   |   |-- __init__.py
+|   |   |   |-- availability_schedule_dao.py
+|   |   |   |-- calendar_dao.py
+|   |   |   |-- event_dao.py
+|   |   |   |-- timeslot_dao.py
+|   |   |   `-- user_dao.py
+|   |   |-- dependencies.py
+|   |   |-- meta.py
+|   |   |-- migrations
+|   |   |   |-- __init__.py
+|   |   |   |-- env.py
+|   |   |   |-- script.py.mako
+|   |   |   `-- versions
+|   |   |       |-- 2024-06-19-13-30_a85ca0487db3.py
+|   |   |       `-- __init__.py
+|   |   |-- models
+|   |   |   |-- __init__.py
+|   |   |   |-- availabilityschedule.py
+|   |   |   |-- calendar.py
+|   |   |   |-- event.py
+|   |   |   |-- timeslot.py
+|   |   |   `-- user.py
+|   |   `-- utils.py
+|   |-- gunicorn_runner.py
+|   |-- services
+|   |   `-- __init__.py
+|   |-- settings.py
+|   |-- tests
+|   |   |-- __init__.py
+|   |   |-- test_calendly.py
+|   |   |-- test_dummy.py
+|   |   `-- test_echo.py
+|   `-- web
+|       |-- __init__.py
+|       |-- api
+|       |   |-- __init__.py
+|       |   |-- availability_schedules
+|       |   |   |-- __init__.py
+|       |   |   |-- schemas.py
+|       |   |   `-- views.py
+|       |   |-- calendar
+|       |   |   |-- __init__.py
+|       |   |   |-- schemas.py
+|       |   |   `-- views.py
+|       |   |-- events
+|       |   |   |-- __init__.py
+|       |   |   |-- schemas.py
+|       |   |   `-- views.py
+|       |   |-- router.py
+|       |   `-- user
+|       |       |-- __init__.py
+|       |       |-- schemas.py
+|       |       `-- views.py
+|       |-- application.py
+|       `-- lifetime.py
+|-- demo.py
+|-- deploy
+|   |-- Dockerfile
+|   `-- docker-compose.yml
+|-- poetry.lock
+`-- pyproject.toml
 ```
 
 ## Configuration
@@ -85,25 +142,6 @@ CALENDLY_ENVIRONMENT="dev"
 ```
 
 You can read more about BaseSettings class here: https://pydantic-docs.helpmanual.io/usage/settings/
-
-## Pre-commit
-
-To install pre-commit simply run inside the shell:
-```bash
-pre-commit install
-```
-
-pre-commit is very useful to check your code before publishing it.
-It's configured using .pre-commit-config.yaml file.
-
-By default it runs:
-* black (formats your code);
-* mypy (validates types);
-* isort (sorts imports in all files);
-* flake8 (spots possible bugs);
-
-
-You can read more about pre-commit here: https://pre-commit.com/
 
 ## Migrations
 
@@ -136,22 +174,4 @@ alembic revision --autogenerate
 
 # For empty file generation.
 alembic revision
-```
-
-
-## Running tests
-
-If you want to run it in docker, simply run:
-
-```bash
-docker-compose -f deploy/docker-compose.yml -f deploy/docker-compose.dev.yml --project-directory . run --build --rm api pytest -vv .
-docker-compose -f deploy/docker-compose.yml -f deploy/docker-compose.dev.yml --project-directory . down
-```
-
-For running tests on your local machine.
-
-
-2. Run the pytest.
-```bash
-poetry run pytest -vv .
 ```
