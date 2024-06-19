@@ -1,11 +1,11 @@
 import enum
 from pathlib import Path
-from tempfile import gettempdir
+from os import getcwd
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from yarl import URL
 
-TEMP_DIR = Path(gettempdir())
+TEMP_DIR = Path(getcwd())
 
 
 class LogLevel(str, enum.Enum):  # noqa: WPS600

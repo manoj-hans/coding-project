@@ -33,7 +33,7 @@ async def view_calendar(calendar_id: int, dao: CalendarDAO = Depends()):
 
 @router.get("/compare-calendars/{calendar_id1}/{calendar_id2}/")
 async def compare_calendars(calendar_id1: int, calendar_id2: int, dao: CalendarDAO = Depends()) -> List[dict]:
-    today = datetime.now().date()
+    today = datetime(2024, 6, 24).date()
     start_of_day = datetime.combine(today, datetime.min.time())
     end_of_day = datetime.combine(today, datetime.max.time())
 
@@ -42,5 +42,5 @@ async def compare_calendars(calendar_id1: int, calendar_id2: int, dao: CalendarD
     slots_calendar2 = await dao.get_available_slots(calendar_id2, start_of_day, end_of_day)
 
     # Find common time slots
-    common_slots = dao.find_common_slots(slots_calendar1, slots_calendar2)
+    common_slots = await dao.find_common_slots(slots_calendar1, slots_calendar2)
     return common_slots
