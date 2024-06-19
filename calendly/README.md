@@ -33,6 +33,14 @@ Please ignore the .env file in code repository. Its and intentional commit to re
 docker-compose -f deploy/docker-compose.yml --project-directory . up -d --build
 ```
 
+## Live
+
+Or just simply visit the live version.
+
+```bash
+http://ec2-43-205-116-169.ap-south-1.compute.amazonaws.com/api
+```
+
 ## Demo
 
 You can run the demo/test using below step.
