@@ -22,14 +22,23 @@ This will start the server on the configured host.
 
 You can find swagger documentation at `/api/docs`.
 
-You can read more about poetry here: https://python-poetry.org/
 
 ## Docker
 
-You can start the project with docker using this command:
+Alternatively, You can start the project with docker using this command.    
+Please ignore the .env file in code repository. Its and intentional commit to reduce the steps to setup.
 
 ```bash
 docker-compose -f deploy/docker-compose.yml --project-directory . up -d --build
+```
+
+## Demo
+
+You can run the demo/test using below step.
+
+```bash
+poetry shell
+python demo.py
 ```
 
 
