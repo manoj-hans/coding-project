@@ -12,7 +12,7 @@ calendar_availability_association = Table(
     'calendar_availability_association',
     Base.metadata,
     Column('calendar_id', Integer, ForeignKey('calendars.id', ondelete="CASCADE"),
-           primary_key=False, unique=True),
+           primary_key=False),
     Column('availability_schedule_id', Integer,
            ForeignKey('availability_schedules.id', ondelete="CASCADE"),
            primary_key=False),
