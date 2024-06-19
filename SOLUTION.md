@@ -25,10 +25,8 @@ Each availability schedule is specific to a day and is directly associated with 
 ### Timezone Management
 - **Current Implementation**: All time-related data are currently stored in UTC. Although the system is capable of supporting timezone specifications at the calendar or user level, this functionality is not yet implemented. Users should be aware that all displayed times are in UTC, and any conversions to local times must be manually handled outside the system.
 
-### Docker Persistance
-- **Current Implementation**: Although docker is running but there is some problem due to which commit is not happening on the db.
 
-- These declarations are intended to acknowledge the system's current limitations and provide transparency about its capabilities and areas for future development.
+These declarations are intended to acknowledge the system's current limitations and provide transparency about its capabilities and areas for future development.
 
 
 ## Models
