@@ -11,6 +11,22 @@ Each availability schedule is specific to a day and is directly associated with 
 - **Unified Time Management**: Times are managed in a unified time zone within the backend, with conversions handled at the application level for user interactions.
 - **Privacy and Security**: Users maintain control over their calendars and events, with robust security measures in place to protect user data.
 
+## Known Limitations and Declarations
+
+### Calendar Comparison
+- **Date for Comparison**: The "Compare Calendars" feature currently compares the calendars of both demo users specifically for June 24, 2024 (Monday). This is intended for demonstration purposes and showcases the system's ability to identify overlapping available slots between two users.
+
+### Availability Schedules
+- **Configurability**: The Availability Schedule, or simply "Schedule," should be regarded as a configurable entity that can be replicated across multiple calendars. This design allows each calendar to have its unique event management but follows predefined availability patterns set in the schedules. This setup enables versatile yet consistent scheduling capabilities across different user calendars.
+
+### Calendar Expiry and Meeting Slots
+- **Handling Incompleteness**: Fields such as calendar expiry and specific meeting slots exist within the database schema but are not fully implemented or handled in the current system version. Future updates will aim to address these aspects to enhance functionality and user experience.
+
+### Timezone Management
+- **Current Implementation**: All time-related data are currently stored in UTC. Although the system is capable of supporting timezone specifications at the calendar or user level, this functionality is not yet implemented. Users should be aware that all displayed times are in UTC, and any conversions to local times must be manually handled outside the system.
+
+These declarations are intended to acknowledge the system's current limitations and provide transparency about its capabilities and areas for future development.
+
 
 ## Models
 
