@@ -27,7 +27,11 @@ class AvailabilityScheduleDAO:
             name=schedule_name
         )
         self.session.add(availability_schedule)
-        await self.session.commit()
+        try:
+            await self.session.commit()
+        except Exception as ex:
+            # this will log details of the exception
+            await self.session.rollback()
 
         # Create associated time slots
         for slot in schedule_input.time_slots:
@@ -38,7 +42,11 @@ class AvailabilityScheduleDAO:
             )
             self.session.add(time_slot)
 
-        await self.session.commit()
+        try:
+            await self.session.commit()
+        except Exception as ex:
+            # this will log details of the exception
+            await self.session.rollback()
         response = await self.list_availability_schedules_with_time_slots(user_id)
         return response
 

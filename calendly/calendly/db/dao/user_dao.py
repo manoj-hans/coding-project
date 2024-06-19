@@ -13,5 +13,9 @@ class UserDAO:
     async def create_user(self, name: str, email: str) -> User:
         user = User(name=name, email=email)
         self.session.add(user)
-        await self.session.commit()
+        try:
+            await self.session.commit()
+        except Exception as ex:
+            # this will log details of the exception
+            await self.session.rollback()
         return user

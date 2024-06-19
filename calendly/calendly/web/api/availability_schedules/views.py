@@ -8,7 +8,6 @@ router = APIRouter()
 
 
 @router.post("/availability_schedules/",
-             # response_model=List[AvailabilityScheduleDTO],
              status_code=status.HTTP_201_CREATED)
 async def create_availability_schedules(
     schedules_input: AvailabilityScheduleListInputDTO,
@@ -26,7 +25,7 @@ async def create_availability_schedules(
     return availability_schedule
 
 
-@router.get("/availability_schedules/{user_id}", response_model=List[AvailabilityScheduleDTO])
+@router.get("/availability_schedules/{user_id}")
 async def get_availability_schedules_with_time_slots(
     user_id: int,
     dao: AvailabilityScheduleDAO = Depends(AvailabilityScheduleDAO)

@@ -60,7 +60,11 @@ class EventDAO:
     async def create_event(self, calendar_id: int, title: str, start_time: datetime, end_time: datetime, booked_by: str, guests: str) -> Event:
         event = Event(calendar_id=calendar_id, title=title, start_time=start_time, end_time=end_time, booked_by=booked_by, guests=guests)
         self.session.add(event)
-        await self.session.commit()
+        try:
+            await self.session.commit()
+        except Exception as ex:
+            # this will log details of the exception
+            await self.session.rollback()
         return event
 
     async def get_events_by_calendar(self, calendar_id: int) -> List[Event]:

@@ -8,7 +8,7 @@ from calendly.db.dao.event_dao import EventDAO  # Assuming EventDAO is imported 
 router = APIRouter()
 
 
-@router.post("/events/", response_model=EventDTO, status_code=201)
+@router.post("/events/", status_code=201)
 async def book_event(event_input: EventCreateInputDTO, dao: EventDAO = Depends()) -> EventDTO:
     """
     Book (create) a new event in a calendar, ensuring no overlap with existing events.
@@ -33,7 +33,7 @@ async def book_event(event_input: EventCreateInputDTO, dao: EventDAO = Depends()
     return event
 
 
-@router.get("/events/{calendar_id}/", response_model=List[EventDTO])
+@router.get("/events/{calendar_id}/")
 async def get_events(calendar_id: int, event_dao: EventDAO = Depends()) -> List[EventDTO]:
     """
     Retrieve all events for a given calendar.

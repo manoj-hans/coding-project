@@ -18,7 +18,11 @@ class TimeSlotDAO:
     async def create_time_slot(self, availability_schedule_id: int, start_time: time, end_time: time) -> TimeSlot:
         time_slot = TimeSlot(availability_schedule_id=availability_schedule_id, start_time=start_time, end_time=end_time)
         self.session.add(time_slot)
-        await self.session.commit()
+        try:
+            await self.session.commit()
+        except Exception as ex:
+            # this will log details of the exception
+            await self.session.rollback()
         return time_slot
 
     async def list_time_slots_for_schedule(self, availability_schedule_id: int) -> List[TimeSlot]:

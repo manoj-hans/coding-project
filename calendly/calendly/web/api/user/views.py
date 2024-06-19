@@ -7,12 +7,12 @@ from calendly.web.api.user.schemas import UserDTO, UserInputDTO  # Assuming thes
 router = APIRouter()
 
 
-@router.get("/users/", response_model=List[UserDTO])
+@router.get("/users/")
 async def get_users(
     limit: int = 10,
     offset: int = 0,
     user_dao: UserDAO = Depends()
-) -> List[UserDTO]:
+):
     """
     Retrieve all user objects from the database.
 
@@ -27,11 +27,11 @@ async def get_users(
     return users
 
 
-@router.post("/users/", response_model=UserDTO, status_code=201)
+@router.post("/users/", status_code=201)
 async def create_user(
     user_input: UserInputDTO,
     user_dao: UserDAO = Depends()
-) -> UserDTO:
+):
     """
     Creates a new user in the database.
 

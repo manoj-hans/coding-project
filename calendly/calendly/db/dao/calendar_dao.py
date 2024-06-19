@@ -22,7 +22,11 @@ class CalendarDAO:
                               availability_schedule_ids: List[int]) -> Calendar:
         calendar = Calendar(user_id=user_id, name=name)
         self.session.add(calendar)
-        await self.session.commit()
+        try:
+            await self.session.commit()
+        except Exception as ex:
+            # this will log details of the exception
+            await self.session.rollback()
         # Associate availability schedules after committing the calendar to get its ID
         for schedule_id in availability_schedule_ids:
             assoc = calendar_availability_association.insert().values(
@@ -30,7 +34,11 @@ class CalendarDAO:
                 availability_schedule_id=schedule_id
             )
             await self.session.execute(assoc)
-        await self.session.commit()
+        try:
+            await self.session.commit()
+        except Exception as ex:
+            # this will log details of the exception
+            await self.session.rollback()
         response = await self.get_calendar_by_id(calendar.id)
         return response
 
