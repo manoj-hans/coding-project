@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "0ef08dc3-4373-45a2-8182-ad67451fec81",
+		"name": "Harbor Calendly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4061398"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"UserB\",\n    \"email\": \"userb@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/user/users",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Availability Schedules",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Client Consultation\",\n    \"user_id\": 1,\n    \"schedules\": [\n        {\n            \"day_of_week\": \"Monday\",  // Assuming 1 for Monday\n            \"time_slots\": [\n                {\n                    \"start_time\": \"09:00:00\",\n                    \"end_time\": \"10:00:00\"\n                },\n                {\n                    \"start_time\": \"15:00:00\",\n                    \"end_time\": \"16:00:00\"\n                }\n            ]\n        },\n        {\n            \"day_of_week\": \"Wednesday\",  // Assuming 3 for Wednesday\n            \"time_slots\": [\n                {\n                    \"start_time\": \"11:00:00\",\n                    \"end_time\": \"12:00:00\"\n                },\n                {\n                    \"start_time\": \"14:00:00\",\n                    \"end_time\": \"15:00:00\"\n                }\n            ]\n        },\n        {\n            \"day_of_week\": \"Friday\",  // Assuming 5 for Friday\n            \"time_slots\": [\n                {\n                    \"start_time\": \"13:00:00\",\n                    \"end_time\": \"14:00:00\"\n                }\n            ]\n        }\n    ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/schedule/availability_schedules/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"schedule",
+						"availability_schedules",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Availability Schedules",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/schedule/availability_schedules/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"schedule",
+						"availability_schedules",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Calendar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 1,\n    \"name\": \"Resume Review\",\n    \"availability_schedule_ids\": [1,2,3]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/calendar/calendars",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"calendar",
+						"calendars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Calendar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/calendar/calendars/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"calendar",
+						"calendars",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Events",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"calendar_id\": 1,\n    \"title\": \"Project Kickoff Meeting\",\n    \"start_time\": \"2024-06-24T11:00:00\",\n    \"end_time\": \"2024-06-24T12:00:00\",\n    \"booked_by\": \"jane.doe@example.com\",\n    \"guests\": \"john.doe@example.com,alice.smith@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/event/events/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"event",
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Compare calendars",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

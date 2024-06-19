@@ -26,7 +26,7 @@ services:
       CALENDLY_HOST: 0.0.0.0
       CALENDLY_DB_FILE: /db_data/db.sqlite3
     volumes:
-    - calendly-db-data:/db_data/
+    - /tmp/:/db_data/
 
   migrator:
     image: calendly:${CALENDLY_VERSION:-latest}
@@ -35,7 +35,7 @@ services:
     environment:
       CALENDLY_DB_FILE: /db_data/db.sqlite3
     volumes:
-    - calendly-db-data:/db_data/
+      - /tmp/:/db_data/
 
 
 
