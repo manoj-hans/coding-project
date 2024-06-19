@@ -84,10 +84,20 @@ def compare_calendars(calendar_id1, calendar_id2):
 
 
 # Define users
-user1 = create_user("UserA", "usera@example.com")
+try:
+    user1 = create_user("UserA", "usera@example.com")
+except Exception as e:
+    print(f"Failed to create user: {e.response.text}")
+
 print("\n")
-user2 = create_user("UserB", "userb@example.com")
+
+try:
+    user2 = create_user("UserB", "userb@example.com")
+except Exception as e:
+    print(f"Failed to create user: {e.response.text}")
+
 print("\n")
+
 # Define and create availability schedules with overlaps
 schedule_a = create_availability_schedule(user1['id'], "Consultations A", [
     {"day_of_week": "Monday",

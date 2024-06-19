@@ -39,5 +39,8 @@ async def create_user(
     :param user_dao: DAO for user models.
     :return: DTO of the newly created user.
     """
-    user = await user_dao.create_user(name=user_input.name, email=user_input.email)
+    try:
+        user = await user_dao.create_user(name=user_input.name, email=user_input.email)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     return user
